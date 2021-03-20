@@ -1,12 +1,10 @@
 # 🏡 DDD Home
 
-## On what I decided to ~~waste~~ dedicate my time 🤔
+## On what I decided to ~~waste~~ dedicate my time? 🤔
 
-DDD Home is a project about modeling the Home Domain.
+DDD Home is a project about modeling the Home Domain using __plain [Kotlin](https://kotlinlang.org/) and [JUnit5](https://junit.org/junit5/) only__.
 
-> __I will model the Home Domain with plain [Kotlin](https://kotlinlang.org/) and [JUnit5](https://junit.org/junit5/) only__.
-
-See what's already modeled at [doc/Domain.md](./doc/Domain.md).
+See what's already modeled at [doc/Domain.md](./doc/Domain.md) 😄
 
 ### What will I model?
 
@@ -37,13 +35,23 @@ I would like to focus on:
 - SOLID
 - Ubiquitous Language
 - Proper Testing
-- Incremental modelling
+- __Incremental modelling__
 
 What you won't find here:
 
 - CQRS
 - Event Sourcing
 - High Availability System
+
+## How could you be involved?
+
+- Creating a new area to be modeled as an issue, and then I will try to model it. Example:
+
+> As person, I want to put the food I bought in the freezer, so that I consume it later without rotting.
+
+I might need to model various things from there, freezer (full/empty), food that can get rotted after X days when inside the freezer or after X-N days if it's outside it.
+
+Cool, isn't it?
 
 ## License
 
