@@ -4,6 +4,12 @@
 
 DDD Home is a project about modeling the Home Domain.
 
+> __I will model the Home Domain with plain [Kotlin](https://kotlinlang.org/) and [JUnit5](https://junit.org/junit5/) only__.
+
+See what's already modeled at [doc/Domain.md](./doc/Domain.md).
+
+### What will I model?
+
 Stuff I might model:
 
 - Different users of the home like:
@@ -31,6 +37,7 @@ I would like to focus on:
 - SOLID
 - Ubiquitous Language
 - Proper Testing
+- Incremental modelling
 
 What you won't find here:
 
