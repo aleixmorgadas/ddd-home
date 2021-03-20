@@ -97,18 +97,24 @@ class HomeTest {
         @Test
         @DisplayName("when is pay day, home asks the Leaseholder to make the money transfer to Lessor")
         fun whenIsPayDayHomeAsksTheLeaseholderToMakeAMoneyTransferToLessor() {
-            val leaseholderSpy = LeaseholderSpy(name = "Aleix")
+            val leaseholderSpy = LeaseholderMock(name = "Aleix")
             val homeOnPayDay = Home(leaseholder = leaseholderSpy, lessor = lessor, today = of(2021, 1, 3))
 
             assertTrue(leaseholderSpy.makeTransferToBeenCalled)
+            assertEquals(lessor, leaseholderSpy.makeTransferToBeenCalledWithReceiver)
+            assertEquals(500.0F, leaseholderSpy.makeTransferToBeenCalledWithAmount)
         }
     }
 }
 
-class LeaseholderSpy(name: String) : Person(name = name) {
+class LeaseholderMock(name: String) : Person(name = name) {
     var makeTransferToBeenCalled = false
+    var makeTransferToBeenCalledWithReceiver: Person? = null
+    var makeTransferToBeenCalledWithAmount: Float? = null
 
     override fun makeTransferTo(receiver: Person, amount: Float) {
         makeTransferToBeenCalled = true
+        makeTransferToBeenCalledWithReceiver = receiver
+        makeTransferToBeenCalledWithAmount = amount
     }
 }
