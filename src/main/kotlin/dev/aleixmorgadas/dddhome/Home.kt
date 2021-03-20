@@ -2,8 +2,14 @@ package dev.aleixmorgadas.dddhome
 
 import java.time.LocalDate
 
-class Home(private val leaseholder: Person, private val today: LocalDate = LocalDate.now()) {
+class Home(private val leaseholder: Person, private val lessor: Person, private val today: LocalDate = LocalDate.now()) {
     private var people = setOf<Person>()
+
+    init {
+        if (isPayDay()) {
+            leaseholder.makeTransferTo(lessor, rent())
+        }
+    }
 
     fun peopleInside(): Int = people.size
 
@@ -14,7 +20,7 @@ class Home(private val leaseholder: Person, private val today: LocalDate = Local
         people = people + peopleComingIn
     }
 
-    fun rent(): Int = 500
+    fun rent(): Float = 500.0F
 
     fun isPayDay(): Boolean {
         return today.dayOfMonth in 1..5
