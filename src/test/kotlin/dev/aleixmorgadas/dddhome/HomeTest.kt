@@ -105,14 +105,52 @@ class HomeTest {
             assertEquals(500.0F, leaseholderSpy.makeTransferToBeenCalledWithAmount)
         }
     }
+
+    @Nested
+    inner class Bills {
+
+        @Test
+        @DisplayName("does it have pending bills")
+        fun doesItHavePendingBills() {
+            val home = Home(leaseholder = leaseholder, lessor = lessor)
+
+            assertFalse(home.pendingBills())
+        }
+
+        @Test
+        @DisplayName("when a provider emits a bill, then there are pending bills")
+        fun whenAProviderEmitsABillThenThereArePendingBills() {
+            val home = Home(leaseholder = leaseholder, lessor = lessor)
+            val electricitySupplier = object: BankAccount {}
+
+            home.billEmitted(supplier = electricitySupplier, amount = 50.0F)
+
+            assertTrue(home.pendingBills())
+        }
+
+        @Test
+        @DisplayName("when there are pending bills, the leaseholder can pay them")
+        fun whenThereArePendingBillsTheLeaseholderCanPayThem() {
+            val leaseholderSpy = LeaseholderMock(name = "Aleix")
+            val homeWithBills = Home(leaseholder = leaseholderSpy, lessor = lessor)
+            val electricitySupplier = object: BankAccount {}
+            homeWithBills.billEmitted(supplier = electricitySupplier, amount = 50.0F)
+
+            homeWithBills.payBills()
+
+            assertTrue(leaseholderSpy.makeTransferToBeenCalled)
+            assertEquals(electricitySupplier, leaseholderSpy.makeTransferToBeenCalledWithReceiver)
+            assertEquals(50.0F, leaseholderSpy.makeTransferToBeenCalledWithAmount)
+        }
+    }
 }
 
 class LeaseholderMock(name: String) : Person(name = name) {
     var makeTransferToBeenCalled = false
-    var makeTransferToBeenCalledWithReceiver: Person? = null
+    var makeTransferToBeenCalledWithReceiver: BankAccount? = null
     var makeTransferToBeenCalledWithAmount: Float? = null
 
-    override fun makeTransferTo(receiver: Person, amount: Float) {
+    override fun makeTransferTo(receiver: BankAccount, amount: Float) {
         makeTransferToBeenCalled = true
         makeTransferToBeenCalledWithReceiver = receiver
         makeTransferToBeenCalledWithAmount = amount

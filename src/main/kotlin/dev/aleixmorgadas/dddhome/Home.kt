@@ -3,7 +3,8 @@ package dev.aleixmorgadas.dddhome
 import java.time.LocalDate
 
 class Home(private val leaseholder: Person, private val lessor: Person, private val today: LocalDate = LocalDate.now()) {
-    private var people = setOf<Person>()
+    private var people = emptySet<Person>()
+    private var pendingBills = emptySet<Bill>()
 
     init {
         if (isPayDay()) {
@@ -24,5 +25,18 @@ class Home(private val leaseholder: Person, private val lessor: Person, private 
 
     fun isPayDay(): Boolean {
         return today.dayOfMonth in 1..5
+    }
+
+    fun pendingBills(): Boolean = pendingBills.isNotEmpty()
+
+    fun billEmitted(supplier: BankAccount, amount: Float) {
+        pendingBills = pendingBills + Bill(supplier, amount)
+    }
+
+    fun payBills() {
+        pendingBills.forEach {
+            leaseholder.makeTransferTo(it.bankAccount, it.amount)
+        }
+        pendingBills = emptySet()
     }
 }

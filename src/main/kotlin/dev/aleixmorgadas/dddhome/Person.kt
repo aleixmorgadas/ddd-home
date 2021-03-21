@@ -1,7 +1,7 @@
 package dev.aleixmorgadas.dddhome
 
-open class Person(val name: String) {
-    open fun makeTransferTo(receiver: Person, amount: Float) {
+open class Person(val name: String): BankAccount {
+    open fun makeTransferTo(receiver: BankAccount, amount: Float) {
 
     }
 }
