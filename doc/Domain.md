@@ -15,3 +15,9 @@
 ## Person
 
 - Able to transfer money between people
+
+## Bank
+
+It appears after [As a Leaseholder, I have to pay the bills, so that the external providers don't cut the service](https://github.com/aleixmorgadas/ddd-home/issues/5)
+
+- __BankAccount__: Able to receive money
